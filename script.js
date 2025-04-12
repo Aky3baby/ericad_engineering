@@ -181,6 +181,44 @@ function isTouchDevice() {
             }
         });
     });
+
+    // Smooth scroll to service sections
+document.querySelectorAll('.dropdown-menu a').forEach(link => {
+  link.addEventListener('click', function(e) {
+    e.preventDefault();
+    const targetId = this.getAttribute('href');
+    const targetSection = document.querySelector(targetId);
+    
+    // Smooth scroll
+    targetSection.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
+
+    // Close dropdown after click (mobile)
+    if (window.innerWidth <= 768) {
+      this.closest('.dropdown').classList.remove('active');
+      document.querySelector('nav ul').classList.remove('active');
+    }
+  });
+});
+
+// Keep dropdown open on hover (desktop)
+let isMobile = window.innerWidth <= 768;
+window.addEventListener('resize', () => {
+  isMobile = window.innerWidth <= 768;
+});
+
+document.querySelectorAll('.dropdown').forEach(item => {
+  if (!isMobile) {
+    item.addEventListener('mouseenter', () => {
+      item.classList.add('active');
+    });
+    item.addEventListener('mouseleave', () => {
+      item.classList.remove('active');
+    });
+  }
+});
     
     // Update active state on scroll
     window.addEventListener('scroll', function() {
