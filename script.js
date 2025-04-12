@@ -35,6 +35,28 @@ document.getElementById('interactiveMap').addEventListener('click', function() {
   'contact' + '@' + 'yourdomain' + '.com';
 
 
+// Mobile Menu Toggle
+document.querySelector('.mobile-menu-toggle').addEventListener('click', function() {
+  document.querySelector('nav ul').classList.toggle('active');
+});
+
+// Dropdown Handling for Mobile
+document.querySelectorAll('.dropdown > a').forEach(item => {
+  item.addEventListener('click', (e) => {
+      if (window.innerWidth <= 768) {
+          e.preventDefault();
+          item.parentElement.classList.toggle('active');
+      }
+  });
+});
+
+// Close menu when clicking outside
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('nav') && window.innerWidth <= 768) {
+      document.querySelector('nav ul').classList.remove('active');
+      document.querySelectorAll('.dropdown').forEach(drop => drop.classList.remove('active'));
+  }
+});
   // Show clickable links only on relevant devices
 function isTouchDevice() {
     return ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
@@ -200,5 +222,18 @@ document.addEventListener('DOMContentLoaded', function() {
   
   toggle.addEventListener('click', function() {
       navLinks.classList.toggle('active');
+  });
+});
+
+// Updated JavaScript with proper element selection
+document.querySelectorAll('.gallery-toggle').forEach(button => {
+  button.addEventListener('click', (e) => {
+    const projectCard = e.target.closest('.project-card');
+    const gallery = projectCard.querySelector('.project-gallery');
+    
+    gallery.classList.toggle('active');
+    e.target.textContent = gallery.classList.contains('active') 
+      ? 'Hide Gallery' 
+      : 'View Project Gallery';
   });
 });
