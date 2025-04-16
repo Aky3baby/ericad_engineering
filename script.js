@@ -250,16 +250,63 @@ document.querySelectorAll('.dropdown').forEach(item => {
 });
 
 
-// Mobile Menu Toggle
+
+
+
 document.addEventListener('DOMContentLoaded', function() {
-  const menuToggle = document.querySelector('.mobile-menu-toggle');
+  // ========== Menu Toggle Functionality ==========
+  const hamburger = document.querySelector('.hamburger');
   const navMenu = document.querySelector('nav ul');
 
-  menuToggle.addEventListener('click', function() {
-    navMenu.classList.toggle('active');
-    this.classList.toggle('fa-times'); // Optional: Change icon
-  });
+  // Only run if elements exist
+  if (hamburger && navMenu) {
+    // Toggle menu visibility
+    hamburger.addEventListener('click', function(e) {
+      e.preventDefault();
+      navMenu.classList.toggle('active');
+      this.querySelector('i').classList.toggle('fa-bars');
+      this.querySelector('i').classList.toggle('fa-times');
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.hamburger') && !e.target.closest('nav ul')) {
+        navMenu.classList.remove('active');
+        hamburger.querySelector('i').classList = 'fas fa-bars';
+      }
+    });
+
+    // Close menu on mobile link click
+    navMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth <= 768) {
+          navMenu.classList.remove('active');
+          hamburger.querySelector('i').classList = 'fas fa-bars';
+        }
+      });
+    });
+  } else {
+    console.error('Missing elements:', {
+      hamburger: !!hamburger,
+      navMenu: !!navMenu
+    });
+  }
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Updated JavaScript with proper element selection
 document.querySelectorAll('.gallery-toggle').forEach(button => {
   button.addEventListener('click', (e) => {
@@ -277,6 +324,7 @@ document.querySelectorAll('.gallery-toggle').forEach(button => {
 function updateTimer() {
   const now = new Date().getTime();
   const distance = targetDate - now;
+  const targetDate = new Date('December 31, 2025 00:00:00').getTime();
 
   const days = Math.floor(distance / (1000 * 60 * 60 * 24));
   const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
