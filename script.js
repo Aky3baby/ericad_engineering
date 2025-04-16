@@ -35,10 +35,7 @@ document.getElementById('interactiveMap').addEventListener('click', function() {
   'contact' + '@' + 'yourdomain' + '.com';
 
 
-// Mobile Menu Toggle
-document.querySelector('.mobile-menu-toggle').addEventListener('click', function() {
-  document.querySelector('nav ul').classList.toggle('active');
-});
+
 
 // Dropdown Handling for Mobile
 document.querySelectorAll('.dropdown > a').forEach(item => {
@@ -255,14 +252,14 @@ document.querySelectorAll('.dropdown').forEach(item => {
 
 // Mobile Menu Toggle
 document.addEventListener('DOMContentLoaded', function() {
-  const toggle = document.querySelector('.mobile-menu-toggle');
-  const navLinks = document.querySelector('.nav-links');
-  
-  toggle.addEventListener('click', function() {
-      navLinks.classList.toggle('active');
+  const menuToggle = document.querySelector('.mobile-menu-toggle');
+  const navMenu = document.querySelector('nav ul');
+
+  menuToggle.addEventListener('click', function() {
+    navMenu.classList.toggle('active');
+    this.classList.toggle('fa-times'); // Optional: Change icon
   });
 });
-
 // Updated JavaScript with proper element selection
 document.querySelectorAll('.gallery-toggle').forEach(button => {
   button.addEventListener('click', (e) => {
@@ -275,3 +272,19 @@ document.querySelectorAll('.gallery-toggle').forEach(button => {
       : 'View Project Gallery';
   });
 });
+
+
+function updateTimer() {
+  const now = new Date().getTime();
+  const distance = targetDate - now;
+
+  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((distance % (1000 * 60)) / 1000); // Fixed line
+
+  document.getElementById('days').textContent = days.toString().padStart(2, '0');
+  document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+  document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+  document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+}
